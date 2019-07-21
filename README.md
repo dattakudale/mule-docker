@@ -10,4 +10,4 @@ docker run -d mule-esb-3.9.0:v1
 
 ## Check the logs
 
-docker logs -f <container id>
+docker logs -f containerid
