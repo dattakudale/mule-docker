@@ -4,7 +4,7 @@ LABEL name="sample mule esb" \
 ### Required labels above - recommended below
       url="https://github.com/dkudale/mule-docker.git" \
       run='docker run -tdi --name ${NAME} \
-      -u 123456 \
+      -u 10001 \
       ${IMAGE}' \
       io.k8s.description="Starter app will do ....." \
       io.k8s.display-name="Starter app" \
