@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mule-esb
+  labels:
+    app: mule-esb
+    visualize: "true"    
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mule-esb
+  template:
+    metadata:
+      labels:
+        app: mule-esb
+        version: "v1"
+        visualize: "true"  
+    spec:
+      securityContext:
+        runAsUser: 1001    
+      containers:
+      - name: mule-esb
+        image: 172.30.1.1:5000/mule-esb-test/mule-esb-3.9.0        
+        imagePullPolicy: Always         
+        resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "1024Mi"
+              cpu: "200m"        
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: cloud
+        ports:
+        - name: http
+          containerPort: 8762
+
