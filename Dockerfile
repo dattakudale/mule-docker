@@ -12,7 +12,7 @@ LABEL name="sample mule esb" \
       io.openshift.tags="mule,starter-arbitrary-uid,starter,arbitrary,uid"
 
 #Run as mule user
-ENV RUN_AS_USER=mule
+#ENV RUN_AS_USER=mule
 
 ENV MULE_HOME=/opt/mule-standalone-3.9.0
 
@@ -34,12 +34,15 @@ RUN mkdir -p /opt/mule-standalone-3.9.0/scripts
 COPY ./startMule.sh /opt/mule-standalone-3.9.0/scripts/
 COPY ./conf/wrapper.conf /opt/mule-standalone-3.9.0/conf/
 
-RUN chown -R 1001:1001 /opt/mule-standalone-3.9.0
-RUN chmod +x /opt/mule-standalone-3.9.0/scripts/startMule.sh
+#RUN chown -R 1001:1001 /opt/mule-standalone-3.9.0
+#RUN chmod +x /opt/mule-standalone-3.9.0/scripts/startMule.sh
 
-WORKDIR ${MULE_HOME}
+RUN chmod -R u+x ${MULE_HOME}/scripts && \
+    chgrp -R 0 ${MULE_HOME} && \
+    chmod -R g=u ${MULE_HOME} /etc/passwd
 
 USER 1001
+WORKDIR ${MULE_HOME}
 
 # Define mount points.
 VOLUME ["${MULE_HOME}/logs", "${MULE_HOME}/conf", "${MULE_HOME}/apps", "${MULE_HOME}/domains"]
