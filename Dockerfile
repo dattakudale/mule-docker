@@ -39,7 +39,7 @@ RUN chmod -R u+x ${MULE_HOME}/scripts && \
     chgrp -R 0 ${MULE_HOME} && \
     chmod -R g=u ${MULE_HOME} /etc/passwd
 
-USER 1001
+USER 10001
 WORKDIR ${MULE_HOME}
 
 # Define mount points.
