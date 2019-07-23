@@ -44,4 +44,4 @@ WORKDIR ${MULE_HOME}
 
 # Define mount points.
 VOLUME ["${MULE_HOME}/logs", "${MULE_HOME}/conf", "${MULE_HOME}/apps", "${MULE_HOME}/domains"]
-CMD [ "${MULE_HOME}/scripts/startMule.sh" ]
+CMD [ "/opt/mule-standalone-3.9.0/scripts/startMule.sh" ]
