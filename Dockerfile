@@ -16,9 +16,7 @@ LABEL name="sample mule esb" \
 
 ENV MULE_HOME=/opt/mule-standalone-3.9.0
 
-RUN groupadd -f -g 1001 ${RUN_AS_USER} && \
-    useradd -u 1001 -g 1001 ${RUN_AS_USER} && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y ntp wget procps && \
     apt-get autoclean && apt-get --purge -y autoremove && \
@@ -46,4 +44,4 @@ WORKDIR ${MULE_HOME}
 
 # Define mount points.
 VOLUME ["${MULE_HOME}/logs", "${MULE_HOME}/conf", "${MULE_HOME}/apps", "${MULE_HOME}/domains"]
-CMD [ "/opt/mule-standalone-3.9.0/scripts/startMule.sh" ]
+CMD [ "${MULE_HOME}/scripts/startMule.sh" ]
