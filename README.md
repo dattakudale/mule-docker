@@ -18,13 +18,12 @@ docker logs -f <containerid>
 
 ```
 oc login -u developer -p developer
-```
 
-## Create image stream in your project
-```
-oc create imagestream mule-esb-3.9.0
-```
+oc new-project mule-esb-test --description="Testing Mule ESB" --display-name="Mule ESB project"
 
+oc new-app https://github.com/dkudale/mule-docker.git
+
+```
 
 ## Create Build in openshift and trigger.
 ```
