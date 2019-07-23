@@ -5,8 +5,8 @@ ENV RUN_AS_USER=mule
 
 ENV MULE_HOME=/opt/mule-standalone-3.9.0
 
-RUN groupadd -f ${RUN_AS_USER} && \
-    useradd --system --home /home/${RUN_AS_USER} -g ${RUN_AS_USER} ${RUN_AS_USER} && \
+RUN groupadd -f -g 1001 ${RUN_AS_USER} && \
+    useradd -u 1001 -g 1001 ${RUN_AS_USER} && \
     apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y ntp wget procps && \
@@ -23,10 +23,12 @@ RUN mkdir -p /opt/mule-standalone-3.9.0/scripts
 COPY ./startMule.sh /opt/mule-standalone-3.9.0/scripts/
 COPY ./conf/wrapper.conf /opt/mule-standalone-3.9.0/conf/
 
-RUN chown -R ${RUN_AS_USER}:${RUN_AS_USER} /opt/mule-standalone-3.9.0
+RUN chown -R 1001:1001 /opt/mule-standalone-3.9.0
 RUN chmod +x /opt/mule-standalone-3.9.0/scripts/startMule.sh
 
 WORKDIR ${MULE_HOME}
+
+USER 1001
 
 # Define mount points.
 VOLUME ["${MULE_HOME}/logs", "${MULE_HOME}/conf", "${MULE_HOME}/apps", "${MULE_HOME}/domains"]
