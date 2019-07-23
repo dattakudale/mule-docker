@@ -1,5 +1,16 @@
 FROM openjdk:8
 
+LABEL name="sample mule esb" \
+### Required labels above - recommended below
+      url="https://github.com/dkudale/mule-docker.git" \
+      run='docker run -tdi --name ${NAME} \
+      -u 123456 \
+      ${IMAGE}' \
+      io.k8s.description="Starter app will do ....." \
+      io.k8s.display-name="Starter app" \
+      io.openshift.expose-services="" \
+      io.openshift.tags="mule,starter-arbitrary-uid,starter,arbitrary,uid"
+
 #Run as mule user
 ENV RUN_AS_USER=mule
 
