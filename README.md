@@ -1,11 +1,11 @@
 # mule-docker
-Mule docker image
+Mule docker image version 4.1.1
 
 ## Build image
-docker build -t mule-esb-3.9.0:v1 .
+docker build -t mule-esb-4.1.1:latest .
 
 ## Run image
-docker run -d mule-esb-3.9.0:v1
+docker run -d mule-esb-4.1.1:latest
 
 
 ## Check the logs
@@ -20,7 +20,7 @@ docker logs -f <containerid>
 oc login -u developer -p developer
 
 oc new-project mule-esb-test --description="Testing Mule ESB" --display-name="Mule ESB project"
-oc create imagestream mule-esb-3.9.0
+oc create imagestream mule-esb-4.1.1
 oc new-app https://github.com/dkudale/mule-docker.git
 
 ```

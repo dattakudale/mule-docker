@@ -1,7 +1,7 @@
 kind: "BuildConfig"
 apiVersion: "v1"
 metadata:
-  name: "mule-build" 
+  name: "mule-build-4.1.1" 
 spec:
   runPolicy: "Serial" 
   triggers: 
@@ -24,4 +24,4 @@ spec:
   output: 
     to:
       kind: "ImageStreamTag"
-      name: "mule-esb-3.9.0:latest"
+      name: "mule-esb-4.1.1:latest"
