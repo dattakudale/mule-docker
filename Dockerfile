@@ -28,7 +28,7 @@ RUN rm ~/mule-standalone-4.1.1.tar.gz
 RUN mkdir -p /opt/mule-standalone-4.1.1/scripts
 COPY ./startMule.sh /opt/mule-standalone-4.1.1/scripts/
 COPY ./conf/wrapper.conf /opt/mule-standalone-4.1.1/conf/
-COPY ./conf/log4j.xml /opt/mule-standalone-4.1.1/conf/
+COPY ./conf/log4j2.xml /opt/mule-standalone-4.1.1/conf/
 
 ADD ./sample_app/*.jar ${MULE_HOME}/apps/
 
