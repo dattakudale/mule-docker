@@ -24,14 +24,34 @@ spec:
       containers:
       - name: mule-esb
         image: 172.30.1.1:5000/mule-esb/mule-esb-4.1.1      
-        imagePullPolicy: Always         
+        imagePullPolicy: Always      
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /test
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 120  
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10  
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /test
+            port: 8081
+            scheme: HTTP
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 10                   
         resources:
             requests:
               memory: "128Mi"
               cpu: "100m"
             limits:
               memory: "2048Mi"
-              cpu: "200m"        
+              cpu: "500m"        
         env:
         - name: SAMPLE_ENV
           value: mule-4.1.1
@@ -39,3 +59,47 @@ spec:
         - name: http
           containerPort: 8081
 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mule-esb
+  labels:
+    name: mule-esb
+    visualize: "true"
+spec:
+  selector:
+    app: mule-esb
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+  sessionAffinity: None 
+
+
+---
+
+apiVersion: v1
+kind: Route
+metadata:
+  name: mule-esb-rest
+spec:
+  path: "/test" 
+  to:
+    kind: Service
+    name: mule-esb
+
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mule-esb
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mule-esb
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 50  

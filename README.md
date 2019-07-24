@@ -23,12 +23,20 @@ oc new-project mule-esb --description="Testing Mule ESB" --display-name="Mule ES
 oc create imagestream mule-esb-4.1.1
 ```
 
+#Check Docker images in cluster
+
+```
+minishift docker-env
+eval $(minishift docker-env)
+docker login -u openshift -p $(oc whoami -t) 172.30.1.1:5000
+```
+
 ## Create Build in openshift and trigger.
 ```
 oc create -f kubernete-build.yaml
 ```
 
-## After creating image deploy the app
+## After creating image deploy the image
 
 ```
 oc create -f kubernete-deploy.yaml
