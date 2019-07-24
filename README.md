@@ -19,7 +19,7 @@ docker logs -f <containerid>
 ```
 oc login -u developer -p developer
 
-oc new-project mule-esb-test --description="Testing Mule ESB" --display-name="Mule ESB project"
+oc new-project mule-esb --description="Testing Mule ESB" --display-name="Mule ESB project"
 oc create imagestream mule-esb-4.1.1
 oc new-app https://github.com/dkudale/mule-docker.git
 
