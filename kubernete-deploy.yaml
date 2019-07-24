@@ -30,7 +30,7 @@ spec:
               memory: "128Mi"
               cpu: "100m"
             limits:
-              memory: "1024Mi"
+              memory: "2048Mi"
               cpu: "200m"        
         env:
         - name: SAMPLE_ENV
